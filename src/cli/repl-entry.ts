@@ -3,7 +3,7 @@
 /**
  * REPL Entry Point
  * 
- * Standalone executable for launching the minimal REPL.
+ * Standalone executable for launching the plugin-extensible REPL.
  * 
  * Usage:
  *   ts-node src/cli/repl-entry.ts
@@ -11,8 +11,11 @@
  *   npm run repl
  */
 
-import { MinimalREPL } from './MinimalREPL';
+import { EnhancedREPL } from './repl/EnhancedREPL';
 
 // Create and start REPL
-const repl = new MinimalREPL();
-repl.start();
+const repl = new EnhancedREPL();
+repl.start().catch((error) => {
+  console.error('Failed to start REPL:', error);
+  process.exit(1);
+});
